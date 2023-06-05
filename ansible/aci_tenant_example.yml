@@ -1,0 +1,37 @@
+- name: Add a new tenant
+  cisco.aci.aci_tenant:
+    host: apic
+    username: admin
+    password: SomeSecretPassword
+    tenant: production
+    description: Production tenant
+    state: present
+  delegate_to: localhost
+
+- name: Remove a tenant
+  cisco.aci.aci_tenant:
+    host: apic
+    username: admin
+    password: SomeSecretPassword
+    tenant: production
+    state: absent
+  delegate_to: localhost
+
+- name: Query a tenant
+  cisco.aci.aci_tenant:
+    host: apic
+    username: admin
+    password: SomeSecretPassword
+    tenant: production
+    state: query
+  delegate_to: localhost
+  register: query_result
+
+- name: Query all tenants
+  cisco.aci.aci_tenant:
+    host: apic
+    username: admin
+    password: SomeSecretPassword
+    state: query
+  delegate_to: localhost
+  register: query_result

@@ -1,0 +1,21 @@
+---
+- name: LIST TENANTS
+  hosts: apic
+
+  tasks:
+
+    - name: List All Tenants
+      aci_tenant:
+        host: "{{ ansible_host }}"
+        port: "{{ ansible_port }}"
+        user: "{{ ansible_user }}"
+        password: "{{ ansible_password }}"
+        validate_certs: "{{ validate_certs }}"
+
+        state: query
+      delegate_to: localhost
+      register: apic_tenants
+
+    - name: Print Tenant List
+      debug:
+        msg: "{{ apic_tenants | json_query('current[].fvTenant.attributes.name') }}"
